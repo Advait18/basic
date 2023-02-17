@@ -32,7 +32,7 @@ class _LoginPageState extends State<LoginPage> {
       // ignore: unused_catch_clause
     } on FirebaseAuthException catch (e) {
       Fluttertoast.showToast(
-          msg: "Incorrect Password! Please try again.",
+          msg: "Incorrect Credentials! Please try again.",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.BOTTOM,
           timeInSecForIosWeb: 1,
