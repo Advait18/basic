@@ -36,7 +36,7 @@ class _SignUpPageState extends State<SignUpPage> {
             fontSize: 16.0);
         // ignore: use_build_context_synchronously
         context.go('/login');
-      } catch (e) {
+      } on FirebaseAuthException catch (e) {
         Fluttertoast.showToast(
             msg: e.toString(),
             toastLength: Toast.LENGTH_LONG,
