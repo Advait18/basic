@@ -1,3 +1,4 @@
+import 'package:basic_prototype/pages/authentication/components/my_text_field.dart';
 import 'package:flutter/material.dart';
 
 class SearchBar extends StatefulWidget {
@@ -8,14 +9,17 @@ class SearchBar extends StatefulWidget {
 }
 
 class _SearchBarState extends State<SearchBar> {
+  final _searchcontroller = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return const SafeArea(
+    return  SafeArea(
       child: Scaffold(
-        body: TextField(
-          decoration: InputDecoration(
-            fillColor: Color(0xFF0C0C0C),
-          ),
+        body: MyTextField(
+          controller: _searchcontroller,
+          hintText: "Search",
+          // decoration: const InputDecoration(
+          //   fillColor: Color(0xFF0C0C0C),
+          // ),
         ),
       ),
     );

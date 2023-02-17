@@ -11,6 +11,16 @@ class Search extends StatefulWidget {
 class _SearchState extends State<Search> {
   @override
   Widget build(BuildContext context) {
-    return const SearchBar();
+    return Scaffold(
+      backgroundColor: const Color(0xFF0C0C0C),
+      body: SingleChildScrollView(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const [
+            SearchBar(),
+          ],
+        ),
+      )
+      );
   }
 }

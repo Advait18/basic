@@ -1,8 +1,11 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:basic_prototype/pages/home/components/banner.dart';
+import 'package:basic_prototype/pages/home/mydrawer.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'components/categorybar.dart';
 
@@ -14,6 +17,16 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  final user = FirebaseAuth.instance.currentUser!;
+  bool isDrawerOpen = false;
+
+  void toggleDrawer() {
+    setState(() {
+      isDrawerOpen = !isDrawerOpen;
+    });
+    context.go('/login');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,10 +34,8 @@ class _HomeState extends State<Home> {
       extendBodyBehindAppBar: true,
       extendBody: true,
       appBar: AppBar(
-        
         elevation: 1,
         shadowColor: Color(0xAAFFFFFF),
-        leading: Icon(Icons.menu, size: 32),
         title: Text(
           'BASICS',
           style: GoogleFonts.inter(fontSize: 25, fontWeight: FontWeight.bold),
@@ -38,7 +49,7 @@ class _HomeState extends State<Home> {
         ],
         backgroundColor: Color(0xFF0C0C0C),
       ),
-
+      drawer: MyDrawer(),
       body: GlowingOverscrollIndicator(
         axisDirection: AxisDirection.down,
         color: Color(0xFFECECEC).withOpacity(1),
@@ -125,33 +136,44 @@ class _HomeState extends State<Home> {
           ),
         ]),
       ),
-
       bottomNavigationBar: CurvedNavigationBar(
         animationCurve: Curves.easeOutQuint,
         animationDuration: const Duration(milliseconds: 360),
         color: Color(0xFF0E0E0E),
         backgroundColor: Colors.transparent,
         height: 65,
-        items: const [
-          Icon(
-            Icons.home_outlined,
-            color: Color(0xFFFFFFFF),
-            size: 30,
+        items: [
+          GestureDetector(
+            onTap: () => context.go('/home'),
+            child: Icon(
+              Icons.home_outlined,
+              color: Color(0xFFFFFFFF),
+              size: 30,
+            ),
           ),
-          Icon(
-            Icons.search_rounded,
-            color: Color(0xFFFFFFFF),
-            size: 30,
+          GestureDetector(
+            onTap: () => context.go('/search'),
+            child: Icon(
+              Icons.search_rounded,
+              color: Color(0xFFFFFFFF),
+              size: 30,
+            ),
           ),
-          Icon(
-            Icons.shopping_bag_outlined,
-            color: Color(0xFFFFFFFF),
-            size: 30,
+          GestureDetector(
+            onTap: () => context.go('/cart'),
+            child: Icon(
+              Icons.shopping_bag_outlined,
+              color: Color(0xFFFFFFFF),
+              size: 30,
+            ),
           ),
-          Icon(
-            Icons.favorite_border_rounded,
-            color: Color(0xFFFFFFFF),
-            size: 30,
+          GestureDetector(
+            onTap: () => context.go('/wishlist'),
+            child: Icon(
+              Icons.favorite_border_rounded,
+              color: Color(0xFFFFFFFF),
+              size: 30,
+            ),
           )
         ],
       ),

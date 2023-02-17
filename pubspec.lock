@@ -168,6 +168,22 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  fluttertoast:
+    dependency: "direct main"
+    description:
+      name: fluttertoast
+      sha256: "774fa28b07f3a82c93596bc137be33189fec578ed3447a93a5a11c93435de394"
+      url: "https://pub.dev"
+    source: hosted
+    version: "8.1.3"
+  go_router:
+    dependency: "direct main"
+    description:
+      name: go_router
+      sha256: "22c1e44fced320c4a7dbdf16545cad71829dd617910fe2604449267f2c6c11ce"
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.0.8"
   google_fonts:
     dependency: "direct main"
     description:
@@ -224,6 +240,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.1"
+  logging:
+    dependency: transitive
+    description:
+      name: logging
+      sha256: "04094f2eb032cbb06c6f6e8d3607edcfcb0455e2bb6cbc010cb01171dcb64e6d"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.1"
   matcher:
     dependency: transitive
     description:
@@ -415,4 +439,4 @@ packages:
     version: "1.0.0"
 sdks:
   dart: ">=2.18.6 <3.0.0"
-  flutter: ">=3.0.0"
+  flutter: ">=3.3.0"

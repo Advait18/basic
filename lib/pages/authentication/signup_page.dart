@@ -1,44 +1,52 @@
-import 'package:basic_prototype/pages/authentication/components/my_button.dart';
-import 'package:basic_prototype/pages/authentication/components/my_text_field.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import 'components/my_button.dart';
 import 'components/my_image.dart';
+import 'components/my_text_field.dart';
 
-//complete this function...
-buttonPressed() {}
-
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class SignUpPage extends StatefulWidget {
+  const SignUpPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<SignUpPage> createState() => _SignUpPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _SignUpPageState extends State<SignUpPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _cpasswordController = TextEditingController();
 
-  Future signIn() async {
-    try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
+  Future signUp() async {
+    if (FirebaseAuth.instance.currentUser != null) {
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
       );
-      // ignore: use_build_context_synchronously
-      context.go('/home');
-      // ignore: unused_catch_clause
-    } on FirebaseAuthException catch (e) {
       Fluttertoast.showToast(
-          msg: "Incorrect Password! Please try again.",
+          msg: "Your account has been created!",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.BOTTOM,
           timeInSecForIosWeb: 1,
           backgroundColor: Colors.grey,
           textColor: Colors.white,
           fontSize: 16.0);
+      // ignore: use_build_context_synchronously
+      context.go('/login');
+    } else {
+      Fluttertoast.showToast(
+          msg: "User already exists. Please login.",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.grey,
+          textColor: Colors.white,
+          fontSize: 16.0);
+
+      const Text('User already exists');
     }
   }
 
@@ -78,11 +86,11 @@ class _LoginPageState extends State<LoginPage> {
                   height: 30,
                 ),
 
-                //Welcome Back you've been missed!
+                // Welcome Back you've been missed!
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
                   child: Text(
-                    'Welcome back you\'ve been missed!',
+                    'Welcome User!',
                     style: GoogleFonts.nunitoSans(
                         fontSize: 18,
                         fontWeight: FontWeight.normal,
@@ -106,25 +114,20 @@ class _LoginPageState extends State<LoginPage> {
 
                 //Password Textfield
                 MyTextField(
-                  controller: _passwordController,
+                  controller: _cpasswordController,
                   hintText: 'Password',
-                  obscureText: false,
+                  obscureText: true,
                 ),
 
-                const SizedBox(height: 12),
+                const SizedBox(
+                  height: 12,
+                ),
 
-                // Forgot password?
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: const [
-                      Text(
-                        'Forgot Password?',
-                        style: TextStyle(color: Colors.blue),
-                      ),
-                    ],
-                  ),
+                //Password Textfield
+                MyTextField(
+                  controller: _passwordController,
+                  hintText: 'Confirm Password',
+                  obscureText: true,
                 ),
 
                 const SizedBox(
@@ -134,18 +137,20 @@ class _LoginPageState extends State<LoginPage> {
                 //Log In button
 
                 MyButton(
-                  onTap: signIn,
-                  text: "Log In",
+                  onTap: signUp,
+                  text: "Sign Up",
                 ),
 
                 const SizedBox(
                   height: 30,
                 ),
+
                 Text('Or continue with',
                     style: GoogleFonts.nunitoSans(
                         fontSize: 16,
                         fontWeight: FontWeight.normal,
                         color: const Color(0xFFFFFFFF))),
+
                 const SizedBox(
                   height: 30,
                 ),
@@ -164,22 +169,24 @@ class _LoginPageState extends State<LoginPage> {
                     MyImage(path: "lib/images/login page/apple.png"),
                   ],
                 ),
+
                 const SizedBox(
                   height: 30,
                 ),
+
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('Don\'t have an account? ',
+                    Text('Already have an account? ',
                         style: GoogleFonts.nunitoSans(
                             fontSize: 16,
                             fontWeight: FontWeight.normal,
                             color: const Color(0xFFFFFFFF))),
                     GestureDetector(
                       onTap: () {
-                        context.go('/signup');
+                        context.go('/login');
                       },
-                      child: Text('Register',
+                      child: Text('Log In',
                           style: GoogleFonts.nunitoSans(
                               fontSize: 16,
                               fontWeight: FontWeight.normal,
